@@ -1,100 +1,75 @@
-# 🎬 Flix App
+# 🎬 Flix App (Cliente Streamlit)
 
-**Flix App** is an interactive web application built with **Python** and **Streamlit**, providing a complete dashboard for **managing movies, genres, actors/actresses, and reviews**.
-It consumes data from an **external RESTful API** and combines a **well-structured architecture** (JWT authentication, layered design, API consumption) with an **intuitive, modern interface**.
+<p align="center">
+  <a href="https://appapp-nn6fq8ue8qikftrqoi9kfm.streamlit.app/">[ 📊 Ver App Interativa ]</a>
+</p>
 
-This project serves both as a **practical tool** and as a **portfolio showcase**, demonstrating strong technical implementation and clean UI design.
+Uma aplicação web interativa construída em **Streamlit** que funciona como um dashboard para gestão de filmes, géneros e críticas.
 
----
-
-## 🚀 Key Features
-
-* **Secure authentication** with JWT (login/logout and session control).
-* **Full CRUD operations** for:
-
-  * Movies
-  * Genres
-  * Actors/Actresses
-  * Reviews
-* **Interactive dashboard** with movie statistics (charts powered by Plotly).
-* **User-friendly interface** built with Streamlit and interactive grids via **st_aggrid**.
-* **Layered architecture** (Page → Service → Repository), enabling maintainability and scalability.
+Este projeto é o **cliente frontend** que consome a [Movie Catalog API (Django REST Framework)](https://github.com/tenoriopedro/flix_api), demonstrando uma arquitetura full-stack desacoplada.
 
 ---
 
-## 🏗️ Project Structure
+### 📊 Dashboard e Funcionalidades
 
-```
-├── app.py             # Streamlit entry point
-├── api/               # Authentication and API integration
-├── actors/            # Actor/actress management
-├── genres/            # Genre management
-├── movies/            # Movie management
-├── reviews/           # Review management
-├── home/              # Dashboard and statistics
-├── login/             # Login and session handling
-├── utils/             # Utilities (e.g., API path)
-├── dotenv_files/      # Environment configs (.env, .env-example)
-├── requirements.txt   # Project dependencies
-└── .flake8            # Linting configuration
-```
+Em vez de *listar* as funcionalidades, aqui está a aplicação em ação.
 
-Each domain (`actors`, `genres`, `movies`, `reviews`) follows a modular structure:
+<p align="center">
+  <img src="https://github.com/tenoriopedro/StreamlitApp/blob/main/streamlitapp.gif?raw=true" alt="Demonstração do Dashboard Flix App" width="700"/>
+</p>
 
-* `page.py` → user interface (Streamlit)
-* `service.py` → application logic
-* `repository.py` → API communication
+* **Autenticação Segura:** Login/logout com gestão de sessão (JWT).
+* **Operações CRUD:** Gestão completa de Filmes, Géneros, Atores e Críticas.
+* **Dashboard Interativo:** Gráficos de estatísticas (via Plotly) e grelhas de dados (via `st_aggrid`).
 
 ---
 
-## ▶️ Usage
+### 🏛️ Arquitetura (Cliente-Servidor)
 
-Run the application with:
+Este projeto não funciona sozinho. Ele foi desenhado como o "Cliente" num ecossistema Cliente-Servidor.
 
-```bash
-streamlit run app.py
-```
+* **Cliente (Este Projeto):** `Flix App (Streamlit)`
+    * Responsável pela interface do utilizador (UI).
+    * Gere a sessão e o estado (via `st.session_state`).
+    * Faz chamadas HTTP (GET, POST, PUT, DELETE) para a API.
 
-The app will open in your default browser with a sidebar menu for:
+* **Servidor (Projeto Separado):** `Movie Catalog API (DRF)`
+    * [Link para o Repositório da API](https://github.com/tenoriopedro/flix_api)
+    * Responsável pela lógica de negócio, persistência na base de dados e autenticação (JWT).
 
-* **Login**
-* **Dashboard (Home)**
-* **Genre Management**
-* **Actor/Actress Management**
-* **Movie Management**
-* **Review Management**
-
----
-
-## 📊 Dashboard Examples
-
-* Movie distribution by genre (pie chart)
-* Total number of movies
-* Total number of reviews
-* Overall average star rating
+O código-fonte do cliente está organizado numa **arquitetura em camadas** para manutenibilidade:
+`Page (UI)` → `Service (Lógica da App)` → `Repository (Comunicação API)`
 
 ---
 
-## 🛠️ Tech Stack
+### 🛠️ Stack Tecnológico (Cliente)
 
 * [Python](https://www.python.org/)
-* [Streamlit](https://streamlit.io/)
-* [st_aggrid](https://pypi.org/project/streamlit-aggrid/)
-* [Plotly](https://plotly.com/python/)
-* [Requests](https://requests.readthedocs.io/)
+* [Streamlit](https://streamlit.io/) (Framework da UI)
+* [st_aggrid](https://pypi.org/project/streamlit-aggrid/) (Grelhas interativas)
+* [Plotly](https://plotly.com/python/) (Visualização de dados)
+* [Requests](https://requests.readthedocs.io/) (Consumo da API)
 * [python-dotenv](https://pypi.org/project/python-dotenv/)
 
 ---
 
-## 🔍 Technical Notes
+### ⚙️ Instalação (Local)
 
-* The system depends on an **external API** configured in `.env`.
-* Session and authentication are managed via `st.session_state`.
-* On **401 Unauthorized** responses, the app forces logout for security.
-* Areas for future improvement: automated testing, enhanced error handling, consistent naming conventions.
+<details>
+  <summary>Clique para ver as instruções de setup local</summary>
+  
+  <p>Para executar este cliente localmente, você <strong>precisa</strong> de ter a <a href="https://github.com/tenoriopedro/flix_api">Movie Catalog API</a> a correr primeiro.</p>
 
----
+  <ol>
+    <li>Clone este repositório.</li>
+    <li>Crie e ative um ambiente virtual e instale as dependências: <code>pip install -r requirements.txt</code></li>
+    <li>Copie <code>dotenv_files/.env-example</code> para <code>dotenv_files/.env</code>.</li>
+    <li>No ficheiro <code>.env</code>, configure o URL base da sua API (ex: <code>API_URL=http://127.0.0.1:8000/api</code>).</li>
+    <li>Execute a aplicação Streamlit:</li>
+  </ol>
+  
+  ```bash
+  streamlit run app.py
+```
 
-## 📄 License
-
-This project is open-source and available for study, demonstration, and portfolio purposes.
+</details>
