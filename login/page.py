@@ -16,3 +16,9 @@ def show_login():
             username=username,
             password=password
         )
+
+    st.info(
+        "**Para fins de demonstração:**\n\n"
+        "**Username:** `demo`\n\n"
+        "**Password:** `passw1234`"
+    )
